@@ -4,13 +4,24 @@ var serand = require('serand');
 var makes = {};
 var models = {};
 
-var process = function (data, done) {
+var cache = function (data) {
     data.forEach(function (model) {
         models[model.id] = model;
-        var o = makes[model.make] || (makes[model.make] = []);
-        o.push(model);
     });
-    done();
+};
+
+var findOne = function (id, done) {
+    $.ajax({
+        method: 'GET',
+        url: utils.resolve('autos:///apis/v/vehicle-models/' + id),
+        dataType: 'json',
+        success: function (data) {
+            done(null, data);
+        },
+        error: function (xhr, status, err) {
+            done(err || status || xhr);
+        }
+    });
 };
 
 var find = function (make, done) {
@@ -25,6 +36,7 @@ var find = function (make, done) {
             if (err) {
                 return ran(err);
             }
+            cache(o);
             ran(null, _.sortBy(o, 'title'));
         });
     }, done);
@@ -34,7 +46,7 @@ exports.findOne = function (id, done) {
     if (models[id]) {
         return done(null, models[id]);
     }
-    find(function (err) {
+    findOne(id, function (err) {
         if (err) {
             return done(err);
         }
