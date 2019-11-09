@@ -26,7 +26,7 @@ var findOne = function (id, done) {
 
 var find = function (make, done) {
     utils.sync('vehicle-models:find', function (ran) {
-        var next = utils.resolve('autos:///apis/v/vehicle-models' + utils.data({
+        var next = utils.resolve('autos:///apis/v/vehicle-models' + utils.toData({
             query: {
                 make: make
             },
