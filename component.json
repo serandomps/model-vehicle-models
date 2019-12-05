@@ -1,6 +1,6 @@
 {
-    "name": "vehicle-models",
-    "description": "vehicle-models component",
+    "name": "model-vehicle-models",
+    "description": "model-vehicle-models component",
     "scripts": [
         "index.js",
         "service/index.js"
