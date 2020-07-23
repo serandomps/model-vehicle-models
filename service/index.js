@@ -13,7 +13,7 @@ var cache = function (data) {
 var findOne = function (id, done) {
     $.ajax({
         method: 'GET',
-        url: utils.resolve('autos:///apis/v/vehicle-models/' + id),
+        url: utils.resolve('apis:///v/vehicle-models/' + id),
         dataType: 'json',
         success: function (data) {
             done(null, data);
@@ -26,7 +26,7 @@ var findOne = function (id, done) {
 
 var find = function (make, done) {
     utils.sync('model-vehicle-models:find', function (ran) {
-        var next = utils.resolve('autos:///apis/v/vehicle-models' + utils.toData({
+        var next = utils.resolve('apis:///v/vehicle-models' + utils.toData({
             query: {
                 make: make
             },
